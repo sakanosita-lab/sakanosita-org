@@ -1,34 +1,171 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>坂ノ下ラボ</title>
-  <meta name="description" content="坂ノ下ラボ — 個人事業のウェブサイト">
-  <style>
-    :root { color-scheme: light dark; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
-      background: #fafaf8;
-      color: #1a1a1a;
-    }
-    @media (prefers-color-scheme: dark) {
-      body { background: #14140f; color: #f0f0ea; }
-    }
-    main { text-align: center; padding: 2rem; }
-    h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0 0 0.5rem; letter-spacing: 0.05em; }
-    p { font-size: 1rem; opacity: 0.7; margin: 0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>坂ノ下ラボ — ロボット・AIの個人開発ラボ</title>
+<meta name="description" content="坂ノ下ラボは、ロボットと機械学習を専門とするひとりの開発ラボです。試作から実装、運用まで、同じ手が最後まで面倒を見ます。">
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --edge: clamp(20px, 5vw, 64px); }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Lora','Noto Serif JP',serif; color: var(--color-text); background: var(--color-bg); text-wrap: pretty; }
+h1,h2,h3 { font-family: 'Cormorant Garamond','Shippori Mincho',serif; }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-600); }
+.wrap { max-width: 1112px; margin: 0 auto; padding: 0 var(--edge); }
+.nav { padding-inline: max(var(--edge), calc((100% - 1112px) / 2 + var(--edge))); }
+.nav a { white-space: nowrap; }
+@media (max-width: 560px) { .nav a { display: none; } }
+.rule { height: 1px; border: 0; margin: 0; background: var(--color-divider); }
+a.btn { white-space: nowrap; text-decoration: none; }
+.kicker { display: block; font-size: 13px; letter-spacing: 0.1em; color: var(--color-accent-700); margin-bottom: 28px; }
+.muted { color: color-mix(in srgb, var(--color-text) 78%, transparent); }
+.hero { padding: clamp(64px, 10vw, 112px) 0 clamp(56px, 8vw, 84px); }
+.display { font-weight: 400; font-size: clamp(40px, 6vw, 76px); line-height: 1.18; letter-spacing: 0.01em; margin: 0; }
+.display .line { display: block; }
+.hero .sub { font-size: 17px; line-height: 1.9; max-width: 36em; margin: 40px 0 0; }
+.hero .row { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 32px; }
+.stats { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 32px; padding: 64px 0; }
+.stat-num { font-family: 'Cormorant Garamond','Shippori Mincho',serif; font-weight: 400; font-size: clamp(36px, 4vw, 48px); line-height: 1; margin: 0; font-feature-settings: 'tnum' 1; }
+.stat-num.gilt { color: var(--color-accent); }
+.stat-label { font-size: 13px; letter-spacing: 0.08em; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0; }
+.services { padding: 84px 0 72px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.col { padding: 0 40px; }
+.col:first-child { padding-left: 0; }
+.col:last-child { padding-right: 0; }
+.col + .col { border-left: 1px solid var(--color-divider); }
+.col h2 { font-weight: 500; font-size: 25px; line-height: 1.4; margin: 0; }
+.col p { font-size: 15.5px; line-height: 2; margin: 20px 0 0; text-align: justify; }
+.split { display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: 28px 80px; align-items: center; padding: 56px 0 84px; }
+.split h2 { font-weight: 500; font-size: 34px; line-height: 1.4; margin: 0; }
+.split .note { font-size: 15.5px; line-height: 2; margin: 20px 0 0; max-width: 44ch; text-align: justify; }
+.split figure { margin: 0; width: 100%; }
+.ph { display: grid; place-items: center; background: var(--color-neutral-100); border: 1px dashed var(--color-neutral-400); color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 13px; letter-spacing: 0.08em; }
+.profile { display: grid; grid-template-columns: auto 1fr; gap: clamp(28px, 5vw, 56px); align-items: center; padding: 72px 0; }
+.profile h2 { font-weight: 500; font-size: 28px; line-height: 1.4; margin: 0; }
+.profile p { font-size: 15.5px; line-height: 2; margin: 16px 0 0; max-width: 60ch; text-align: justify; }
+.notes { padding: 72px 0; }
+.notes h2 { font-weight: 500; font-size: 26px; line-height: 1.4; margin: 0; }
+.close { padding: 72px 0 64px; }
+.close h2 { font-weight: 500; font-size: 26px; line-height: 1.4; margin: 0; }
+.close p { font-size: 15.5px; line-height: 2; margin: 16px 0 0; max-width: 40em; }
+.close .mail { font-family: 'Cormorant Garamond','Shippori Mincho',serif; font-size: clamp(20px, 3vw, 26px); margin: 28px 0 0; }
+footer { padding: 40px 0 48px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent); border-top: 1px solid var(--color-divider); }
+@media (max-width: 900px) {
+  .cols { grid-template-columns: 1fr; gap: 40px; }
+  .col { padding: 0; max-width: 62ch; }
+  .col + .col { border-left: 0; border-top: 1px solid var(--color-divider); padding-top: 40px; }
+  .split { grid-template-columns: 1fr; }
+  .split figure { max-width: 420px; }
+}
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, 1fr); justify-content: start; }
+  .profile { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-  <main>
-    <h1>坂ノ下ラボ</h1>
-    <p>準備中 — Coming soon</p>
-  </main>
+<nav class="nav">
+  <span class="nav-brand">坂ノ下ラボ</span>
+  <a href="#services">つくるもの</a>
+  <a href="#works">実績</a>
+  <a href="#notes">ノート</a>
+  <a href="#contact">連絡先</a>
+  <a class="btn btn-primary" href="#contact" style="text-decoration:none;">相談してみる</a>
+</nav>
+<div class="wrap">
+
+  <section class="hero">
+    <h1 class="display"><span class="line">ロボットとAIを、</span><span class="line">手づくりの速度で。</span></h1>
+    <p class="sub muted">坂ノ下ラボは、ロボットと機械学習を専門とするひとりの開発ラボです。試作から実装、運用まで、同じ手が最後まで面倒を見ます。小さく速く、でも丁寧に。</p>
+    <div class="row">
+      <a class="btn btn-primary" href="#contact" style="text-decoration:none;">相談してみる</a>
+      <a class="btn btn-ghost" href="#works" style="text-decoration:none;">実績を見る</a>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="stats" aria-label="数字で見る坂ノ下ラボ">
+    <div><p class="stat-num gilt">12</p><p class="stat-label">試作したロボット</p></div>
+    <div><p class="stat-num">8</p><p class="stat-label">進行・完了プロジェクト</p></div>
+    <div><p class="stat-num">36</p><p class="stat-label">公開したノート</p></div>
+    <div><p class="stat-num">1</p><p class="stat-label">手を動かす人</p></div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="services" id="services">
+    <span class="kicker">つくるもの</span>
+    <div class="cols">
+      <div class="col">
+        <h2>ロボット試作</h2>
+        <p class="muted">アイデアを、動く機体にします。機構設計から基板、ファームウェアまでを一つの手で通すので、「設計図はあるのに動かない」が起きません。まず一台、小さく作って確かめましょう。</p>
+      </div>
+      <div class="col">
+        <h2>AI・機械学習</h2>
+        <p class="muted">画像認識、異常検知、LLMの業務組み込みなど。流行りの言葉ではなく、手元のデータと課題から一緒に考えます。「まだAIにする段階ではない」と正直に言うこともあります。</p>
+      </div>
+      <div class="col">
+        <h2>技術支援・執筆</h2>
+        <p class="muted">開発チームの技術顧問、レビュー、勉強会、記事や資料の執筆。作るだけでなく、伝えることも仕事の一部だと思っています。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="split" id="works">
+    <div>
+      <span class="kicker">実績・事例</span>
+      <h2>小さなラボの、確かな仕事。</h2>
+      <p class="note muted">これまでの主な仕事の一部です。守秘のため詳細を伏せている案件もあります。お問い合わせいただければ、近い事例をご紹介できます。</p>
+      <table class="table" style="margin-top:36px; width:100%;">
+        <thead><tr><th>年</th><th>案件</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>2026</td><td>搬送ロボットの試作</td><td>機構設計・制御・実地試験</td></tr>
+          <tr><td>2025</td><td>外観検査AIの導入</td><td>データ設計から現場運用まで</td></tr>
+          <tr><td>2025</td><td>技術顧問(製造業)</td><td>開発体制づくりと定例レビュー</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="plate">
+      <!-- 写真に差し替える場合: この div を <img src="assets/work.jpg" alt="作業風景" style="width:100%; display:block;"> に置き換え -->
+      <div class="ph" style="width:100%; aspect-ratio:3/4;">作業風景・機体の写真</div>
+    </figure>
+  </section>
+
+  <hr class="rule">
+
+  <section class="notes" id="notes">
+    <span class="kicker">ノート</span>
+    <h2>開発の記録、そのうち書きます。</h2>
+    <p class="muted" style="font-size:15.5px; line-height:2; margin:16px 0 0; max-width:40em;">試作の失敗談や道具の話など、手を動かして分かったことを少しずつ。準備中です。</p>
+  </section>
+
+  <hr class="rule">
+
+  <section class="profile">
+    <!-- 顔写真に差し替える場合: この div を <img src="assets/portrait.jpg" alt="代表の写真" style="width:180px; height:180px; border-radius:50%; object-fit:cover;"> に置き換え -->
+    <div class="ph" style="width:180px; height:180px; border-radius:50%;">顔写真</div>
+    <div>
+      <span class="kicker" style="margin-bottom:20px;">代表</span>
+      <h2>坂ノ下 ◯◯</h2>
+      <p class="muted">メーカーでロボット開発に十数年携わったのち、独立。「大きな組織では拾えない、小さくて大事な開発」を引き受けたくて、坂ノ下ラボを始めました。はんだごてとPythonが同じくらい好きです。</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="close" id="contact">
+    <h2>まずは、雑談から。</h2>
+    <p class="muted">「これってロボットでできる?」「AIって言われたけど何から?」——そのくらいの段階のご相談が、いちばん歓迎です。メールでお気軽にどうぞ。</p>
+    <p class="mail"><a href="mailto:hello@sakanosita.org">hello@sakanosita.org</a></p>
+  </section>
+
+  <footer>© 2026 坂ノ下ラボ</footer>
+</div>
 </body>
 </html>
